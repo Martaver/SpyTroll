@@ -1,10 +1,10 @@
-var gulp = require('gulp');
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-var babel = require('gulp-babel');
-var browserify = require('browserify');
+var gulp = require('gulp')
+var autoprefixer = require('gulp-autoprefixer')
+var sourcemaps = require('gulp-sourcemaps')
+var babel = require('gulp-babel')
+var browserify = require('browserify')
 var watchify = require('watchify')
-var babelify = require('babelify');
+var babelify = require('babelify')
 var vinylSource = require('vinyl-source-stream')
 var vinylBuffer = require('vinyl-buffer')
 var uglifyify = require('uglifyify')
@@ -12,15 +12,12 @@ var util = require('gulp-util')
 var concat = require('gulp-concat')
 var envify = require('loose-envify')
 var eslint = require('gulp-eslint')
-var merge = require('merge-stream')
 var cssModulesify = require('css-modulesify')
 
 var config = {
     serverFiles: 'server/**/*.js',
-    jsFiles: 'browser/**/*.js',
-    cssGlobalFiles: ['browser/css/global/*.css', 'node_modules/draft-js/dist/Draft.css'],
-    cssLoginFiles: 'browser/css/login.css',
-    cssLandingFiles: 'browser/css/landing/*.css',
+    jsFiles: 'client/**/*.js',
+    cssGlobalFiles: 'client/css/global/*.css',
     isProduction: process.env.NODE_ENV === 'production'
 }
 
@@ -42,9 +39,9 @@ gulp.task('lintServer', function () {
 
 function getJSBundle(rootFile, outFile, watch) {
     if (config.isProduction) {
-        util.log('Compiling client-side javascript for', util.colors.green('production'));
+        util.log('Compiling client-side javascript for', util.colors.green('production'))
     } else {
-        util.log('Compiling client-side javascript for', util.colors.yellow('development'));
+        util.log('Compiling client-side javascript for', util.colors.yellow('development'))
     }
 
     var modulesOptions = {
@@ -80,17 +77,17 @@ function getJSBundle(rootFile, outFile, watch) {
 
     function rebundle() {
         util.log(`Starting \'${util.colors.cyan('js')}\' for \'${util.colors.magenta(rootFile)}\'...`)
-        var stream = bundler.bundle();
+        var stream = bundler.bundle()
         stream.on('error', function (err) {
-            util.log(util.colors.red(err.stack));
-            util.log(util.colors.red(err));
-            this.emit("end");
+            util.log(util.colors.red(err.stack))
+            util.log(util.colors.red(err))
+            this.emit("end")
         })
         .pipe(vinylSource(outFile))
         .pipe(vinylBuffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest('public'))
 
         return stream
     };
@@ -104,52 +101,23 @@ function getJSBundle(rootFile, outFile, watch) {
 }
 
 gulp.task('js:watch', ['lint'], function() {
-    var appBundle = getJSBundle('browser/index.js', 'bundle.js', true)
-    var loginBundle = getJSBundle('browser/loginPage/loginApp.js', 'login_bundle.js', true)
-    return merge(appBundle, loginBundle)
+    return getJSBundle('client/index.js', 'bundle.js', true)
 })
 
 gulp.task('js', ['lint'], function () {
-    var appBundle = getJSBundle('browser/index.js', 'bundle.js', false)
-    var loginBundle = getJSBundle('browser/loginPage/loginApp.js', 'login_bundle.js', false)
-
-    return merge(appBundle, loginBundle)
-});
-
-gulp.task('css:landing', function() {
-    return landing = gulp.src('browser/css/landing/*.css')
-        .pipe(autoprefixer())
-        .on('error', function (err) {
-            util.log(util.colors.red(err.stack));
-            util.log(util.colors.red(err));
-            this.emit("end");
-        })
-        .pipe(concat('landing.css'))
-        .pipe(gulp.dest('public/css'));
-});
-
-gulp.task('css:global', function() {
-    return style = gulp.src(config.cssGlobalFiles)
-        .pipe(autoprefixer())
-        .on('error', function (err) {
-            util.log(util.colors.red(err.stack));
-            util.log(util.colors.red(err));
-            this.emit("end");
-        })
-        .pipe(concat('global_style.css'))
-        .pipe(gulp.dest('public/css'));
+    return getJSBundle('client/index.js', 'bundle.js', false)
 })
 
-gulp.task('css:login', function() {
-    return style = gulp.src(config.cssLoginFiles)
+gulp.task('css:global', function() {
+    return gulp.src(config.cssGlobalFiles)
         .pipe(autoprefixer())
         .on('error', function (err) {
-            util.log(util.colors.red(err.stack));
-            util.log(util.colors.red(err));
-            this.emit("end");
+            util.log(util.colors.red(err.stack))
+            util.log(util.colors.red(err))
+            this.emit("end")
         })
-        .pipe(concat('login.css'))
-        .pipe(gulp.dest('public/css'));
+        .pipe(concat('global_style.css'))
+        .pipe(gulp.dest('public/css'))
 })
 
 gulp.task('server', ['lintServer'], function() {
@@ -161,18 +129,16 @@ gulp.task('server', ['lintServer'], function() {
         }))
         .on('error', function (err) {
             util.log(util.colors.red(err.stack))
-            util.log(util.colors.red(err));
-            this.emit("end");
+            util.log(util.colors.red(err))
+            this.emit("end")
         })
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('prod'))
-});
+})
 
 gulp.task('watch', ['js:watch'], function() {
     gulp.watch(config.cssGlobalFiles, ['css:global'])
-    gulp.watch(config.cssLoginFiles, ['css:login'])
-    gulp.watch(config.cssLandingFiles, ['css:landing'])
     gulp.watch(config.serverFiles, ['server'])
 })
 
-gulp.task('compile', ['js', 'css:landing', 'css:global', 'css:login', 'server'])
+gulp.task('compile', ['js', 'css:global', 'server'])
