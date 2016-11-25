@@ -19,3 +19,5 @@ prod/
 
 # ignore source map files
 *.map
+
+.idea
