@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // localhost if we don't find one.
 app.dbUri = process.env.MONGOLAB_URI ||
             process.env.MONGOHQ_URL ||
-            'mongodb://localhost/BeagleApp'
+            'mongodb://localhost/spytroll'
 
 ////////////////////////////////////////////////////////////////////////////////
 // Mongoose Setup
