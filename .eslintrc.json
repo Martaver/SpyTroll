@@ -1,0 +1,23 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread":true
+        }
+    },
+    "rules": {
+        "no-undef" : 2,
+        "semi": ["error", "never"],
+        "indent": [2, 4, {"SwitchCase": 1}],
+        "no-trailing-spaces": "error"
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "globals": {
+        "Promise": true
+    }
+}
