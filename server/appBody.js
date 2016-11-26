@@ -5,14 +5,28 @@ import path from "path"
 import async from 'async'
 import mustacheExpress from 'mustache-express'
 
-var io = require('socket.io');
+//import socket from './socket-endpoint.js'
 import scraperJS from './scraping/get-amazon-products.js';
 import scrapeAmazon from './scraping/get-amazon-products.js';
+
+//import getTone from './watson/get-tone.js';
+
+var buffer = [];
 
 //////////////////////////////////////////////////////////////////////////////
 // Setup Express App
 //////////////////////////////////////////////////////////////////////////////
 let app = express()
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+/*
+var socket = require('socket.io-client')('http://localhost');
+  socket.on('connect', function(){});
+  socket.on('event', function(data){});
+  socket.on('disconnect', function(){});
+*/
+
 app.set('port', (process.env.PORT || 5000))
 
 // views is directory for all template files
@@ -102,17 +116,30 @@ app.get('/data', function(request, response) {
 
     // Get the data from production env
     scrapeAmazon( searchterm,
-                put2Socket,
+                function( stuff ) { console.log( stuff ) },
                 put2Socket );
     
-    response.status(200).send("ok");
+    response.status(200).send("Searching: " + searchterm );
 })
 
 // Create for emitting
-var put2Socket = function( companyname ) {
-    //io.sockets.emit( );
-    console.log( companyname );
+var put2Socket = function( name ) {
+    // Add to buffer
+    buffer.push( name );
 }
 
+io.on('connection', function(client) {  
+    console.log('Client connected...');
+
+    client.on('join', function(data) {
+        console.log(data);
+    });
+
+    // Send the buffered data
+    client.on('event', function(data) {
+        client.emit('broad', buffer);
+    });
+
+});
 
 export default app
