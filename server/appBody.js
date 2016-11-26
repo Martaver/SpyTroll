@@ -96,17 +96,23 @@ app.get('/', function(request, response) {
 })
 
 // Call to ScraperJS
-app.get('/data ', function(request, response) {
+app.get('/data', function(request, response) {
     var searchterm = request.param('searchterm');
-    console.log( "Query: " + request );
+    console.log( "Query: " + request.body );
 
     // Get the data from production env
-    scrapeAmazon( searchterm ||,
-                function(name) { console.log( name )},
-                function(name) { console.log( name )} );
+    scrapeAmazon( searchterm,
+                put2Socket,
+                put2Socket );
     
-    response.status(200);
+    response.status(200).send("ok");
 })
+
+// Create for emitting
+var put2Socket = function( companyname ) {
+    //io.sockets.emit( );
+    console.log( companyname );
+}
 
 
 export default app

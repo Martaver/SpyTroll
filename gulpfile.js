@@ -20,22 +20,22 @@ var config = {
     cssGlobalFiles: 'client/css/global/*.css',
     isProduction: process.env.NODE_ENV === 'production'
 }
-
+/*
 gulp.task('lint', function () {
     if (config.isProduction) { return }
 
     return gulp.src(config.jsFiles)
     .pipe(eslint())
     .pipe(eslint.format())
-})
+})*/
 
-gulp.task('lintServer', function () {
+/*gulp.task('lintServer', function () {
     if(config.isProduction) { return }
 
     return gulp.src(config.serverFiles)
     .pipe(eslint())
     .pipe(eslint.format())
-})
+})*/
 
 function getJSBundle(rootFile, outFile, watch) {
     if (config.isProduction) {
@@ -100,11 +100,11 @@ function getJSBundle(rootFile, outFile, watch) {
     return rebundle()
 }
 
-gulp.task('js:watch', ['lint'], function() {
+gulp.task('js:watch', function() {
     return getJSBundle('client/index.js', 'bundle.js', true)
 })
 
-gulp.task('js', ['lint'], function () {
+gulp.task('js', function () {
     return getJSBundle('client/index.js', 'bundle.js', false)
 })
 
@@ -120,7 +120,7 @@ gulp.task('css:global', function() {
         .pipe(gulp.dest('public/css'))
 })
 
-gulp.task('server', ['lintServer'], function() {
+gulp.task('server', function() {
     return gulp.src(config.serverFiles)
         .pipe(sourcemaps.init())
         .pipe(babel({
