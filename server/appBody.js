@@ -13,7 +13,7 @@ import scrapeAmazon from './scraping/get-amazon-products.js';
 // Setup Express App
 //////////////////////////////////////////////////////////////////////////////
 let app = express()
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 8080))
 
 // views is directory for all template files
 app.set('views', path.resolve(__dirname, '../views'))
@@ -25,7 +25,7 @@ app.use(express.static('public'))
 // set up path to our babel polyfill
 app.use('/scripts', express.static(__dirname + '/node_modules/babel-polyfill/dist/'))
 
-// Make sure    express parses request bodies
+// Make sure express parses request bodies
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -104,7 +104,7 @@ app.get('/data', function(request, response) {
     scrapeAmazon( searchterm,
                 put2Socket,
                 put2Socket );
-    
+
     response.status(200).send("ok");
 })
 

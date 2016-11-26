@@ -4,7 +4,7 @@
   "description": "Product market analyser",
   "main": "prod/app.js",
   "scripts": {
-    "start:dev": "set DEBUG=express:* && set NODE_ENV=development && nodemon prod/app.js",
+    "start:dev": "source .env && DEBUG=express:* NODE_ENV=development nodemon prod/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
