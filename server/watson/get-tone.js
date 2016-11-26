@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var request = require('request');
+var req = require('request');
 
 // var unirest = require('unirest');
 
@@ -14,8 +14,9 @@ function getTone(text) {
 	// })
 
 	var data = { 'text': text };
-	request({
-		url: 'http://spytroll.eu-gb.mybluemix.net/analyze-text',
+	req({
+		// url: 'http://spytroll.eu-gb.mybluemix.net/analyze-text',
+		url: 'http://spytroll.eu-gb.mybluemix.net',
 		method: 'POST',
 		//Lets post the following key/values as form
 		json: data
