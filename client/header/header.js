@@ -4,9 +4,12 @@ import styles from './css/header.css'
 export default class Header extends Component {
     render() {
         return (
-            <h1 className={ styles.header } >
-                { this.props.title }
-            </h1>
+            <div>
+                <div className={ styles.background } />
+                <h1 className={ styles.header } >
+                    { this.props.title }
+                </h1>
+            </div>
         )
     }
 }

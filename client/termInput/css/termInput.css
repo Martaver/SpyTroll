@@ -1,8 +1,91 @@
+/* Reset this stylesheet agent nonsense */
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1em;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+button:active {
+    outline: 0;
+}
+
+input {
+    background-clip: border-box;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    text-align: left;
+    background-color: white;
+    font: inherit;
+    font-size: inherit;
+}
+
+/* Actual stuff */
+
 .wrapper {
-    height: 100%;
-    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 60px;
 
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.terms {
+    width: 1030px;
+    height: 60px;
+    background-color: inherit;
+    border: 1px solid #D8DAD3;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-size: 31.25px;
+    font-weight: 300;
+
+    transition: width 0.1s;
+    position: absolute;
+    left: 10px;
+}
+
+.wrapper:hover > .terms {
+    width: 880px;
+}
+
+.submit {
+    padding: 0;
+    visibility: hidden;
+    opacity: 0;
+    color: #2B4141;
+    background-color: #77eedf;
+    height: auto;
+    line-height: 60px;
+    width: 140px;
+    margin-left: 10px;
+    font-size: 25px;
+    font-weight: 300;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid #77eedf;
+    transition: background-color 0.5s, opacity 1.5s;
+    position: absolute;
+    right: 10px;
+}
+
+.submit:hover {
+    background-color: inherit;
+}
+
+.wrapper:hover > .submit {
+    visibility: visible;
+    opacity: 1;
 }

@@ -8,12 +8,14 @@ export default class TermInput extends Component {
             name='termInput'
             onSubmit={ this.props.handleSubmit } >
             <input type='text'
+                className={ styles.terms }
                 name='termInput.terms'
                 placeholder='All about your company...'
                 onChange={ this.props.handleChange }
                 onBlur={ this.props.handleChange }
                 value={ this.props.terms.value } />
             <input type='submit'
+                className={ styles.submit }
                 value='Submit' />
         </form>
         )

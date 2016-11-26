@@ -8,7 +8,7 @@ export default class Landing extends Component {
     render() {
         return (
         <div className={ styles.wrapper }>
-            <Header title='spy/spy.' />
+            <Header title='spy/spy' />
             <TermInputContainer />
         </div>
         )
