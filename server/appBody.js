@@ -9,7 +9,7 @@ import mustacheExpress from 'mustache-express'
 // Setup Express App
 //////////////////////////////////////////////////////////////////////////////
 let app = express()
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 8080))
 
 // views is directory for all template files
 app.set('views', path.resolve(__dirname, '../views'))
@@ -26,7 +26,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 //////////////////////////////////////////////////////////////////////////////
-// Setup Database
+// Set Up Database
 //////////////////////////////////////////////////////////////////////////////
 
 // Here we find an appropriate database to connect to, defaulting to
@@ -81,9 +81,9 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-// resolve landing.html on /
+// resolve index.html on /
 app.get('/', function(request, response) {
-    response.render('landing', {
+    response.render('index', {
         production: process.env.NODE_ENV === 'production',
     })
 })
