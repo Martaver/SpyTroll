@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var request = require('request');
 
-function getTone(text) {
+function getTone(text, onTone) {
 
 	console.log('doing stuff...');
 
@@ -13,7 +13,7 @@ function getTone(text) {
 	}, function(error, response, body){
 
 		if(error) { console.log(error); }
-		else { console.log(response.statusCode, body); }
+		else { onTone(JSON.parse(body)); }
 	});
 
 }
