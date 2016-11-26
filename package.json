@@ -67,6 +67,7 @@
     "scraperjs": "^1.2.0",
     "socket-io": "0.0.0",
     "socket.io": "^1.6.0",
+    "superagent": "^3.0.0",
     "twitter": "^1.4.0",
     "uglifyify": "^3.0.2",
     "uuid": "^3.0.0",
