@@ -59,17 +59,21 @@ export default function scrapeAmazon(search, newCompanyCallback, newProductCallb
 					//Find the h2 element of each item, and get each's text.
 					.scrape(function($) {
 
-						return $("div.s-item-container h2").map(function() { return $(this).text() })
+						return $("div.s-item-container").map(function() { return {
+							name: $(this).find('h2').text(),
+							imageSrc: $(this).find('img.s-access-image').attr('src')
+						} })
 					})
 
-					.then(function(productNames) {
+					.then(function(infos) {
 
-						_.each(productNames, function(productName) {
+						_.each(infos, function(info) {
 
 							var product = {
 								id: uuid(),
-								name: productName,
-								companyId: company.id
+								name: info.name,
+								companyId: company.id,
+								imageSrc: info.imageSrc
 							};
 
 							newProductCallback(product);
