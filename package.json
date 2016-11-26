@@ -4,7 +4,7 @@
   "description": "Product market analyser",
   "main": "prod/app.js",
   "scripts": {
-    "start:dev": "source .env && DEBUG=express:* NODE_ENV=development nodemon prod/app.js",
+    "start:dev": "set DEBUG=express:* && set NODE_ENV=development && nodemon prod/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -59,6 +59,8 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "scraperjs": "^1.2.0",
+    "socket-io": "0.0.0",
+    "socket.io": "^1.6.0",
     "uglifyify": "^3.0.2",
     "uuid": "^3.0.0",
     "vinyl-buffer": "^1.0.0",

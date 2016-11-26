@@ -5,11 +5,15 @@ import path from "path"
 import async from 'async'
 import mustacheExpress from 'mustache-express'
 
+var io = require('socket.io');
+import scraperJS from './scraping/get-amazon-products.js';
+import scrapeAmazon from './scraping/get-amazon-products.js';
+
 //////////////////////////////////////////////////////////////////////////////
 // Setup Express App
 //////////////////////////////////////////////////////////////////////////////
 let app = express()
-app.set('port', (process.env.PORT || 8080))
+app.set('port', (process.env.PORT || 5000))
 
 // views is directory for all template files
 app.set('views', path.resolve(__dirname, '../views'))
@@ -21,12 +25,12 @@ app.use(express.static('public'))
 // set up path to our babel polyfill
 app.use('/scripts', express.static(__dirname + '/node_modules/babel-polyfill/dist/'))
 
-// Make sure express parses request bodies
+// Make sure    express parses request bodies
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 //////////////////////////////////////////////////////////////////////////////
-// Set Up Database
+// Setup Database
 //////////////////////////////////////////////////////////////////////////////
 
 // Here we find an appropriate database to connect to, defaulting to
@@ -34,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.dbUri = process.env.MONGOLAB_URI ||
             process.env.MONGOHQ_URL ||
             'mongodb://localhost/spytroll'
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Mongoose Setup
@@ -47,6 +52,7 @@ mongoose.Promise = global.Promise
  * Makes connection asynchronously.  Mongoose will queue up database
  * operations and release them when the connection is complete.
  */
+/*
 app.connectToDatabase = function(done) {
     mongoose.connect(app.dbUri, function (err, res) {
         if (err) {
@@ -58,7 +64,7 @@ app.connectToDatabase = function(done) {
             done()
         }
     })
-}
+}*/
 
 //////////////////////////////////////////////////////////////////////////////
 // Load models
@@ -68,6 +74,7 @@ app.connectToDatabase = function(done) {
 //////////////////////////////////////////////////////////////////////////////
 // Define Routes
 //////////////////////////////////////////////////////////////////////////////
+
 
 // Automatically redirect all http traffic to https
 if (process.env.NODE_ENV === 'production') {
@@ -81,11 +88,25 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-// resolve index.html on /
+// resolve landing.html on /
 app.get('/', function(request, response) {
-    response.render('index', {
+    response.render('landing', {
         production: process.env.NODE_ENV === 'production',
     })
 })
+
+// Call to ScraperJS
+app.get('/data ', function(request, response) {
+    var searchterm = request.param('searchterm');
+    console.log( "Query: " + request );
+
+    // Get the data from production env
+    scrapeAmazon( searchterm ||,
+                function(name) { console.log( name )},
+                function(name) { console.log( name )} );
+    
+    response.status(200);
+})
+
 
 export default app
