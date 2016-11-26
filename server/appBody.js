@@ -104,7 +104,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // resolve landing.html on /
 app.get('/', function(request, response) {
-    response.render('landing', {
+    response.render('index', {
         production: process.env.NODE_ENV === 'production',
     })
 })
