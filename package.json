@@ -67,7 +67,6 @@
     "socket.io": "^1.6.0",
     "twitter": "^1.4.0",
     "uglifyify": "^3.0.2",
-    "unirest": "^0.5.1",
     "uuid": "^3.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
