@@ -1,9 +1,8 @@
-var _ = require('lodash');
-var request = require('request');
+// var request = require('request');
+import request from 'request';
 
-function getTone(text, onTone) {
-
-	console.log('doing stuff...');
+export default function getTone(text, onTone) {
+// module.exports.getTone = function(text, onTone) {
 
 	var data = { text: text };
 
@@ -18,4 +17,4 @@ function getTone(text, onTone) {
 
 }
 
-getTone('The fat black cat sat in the hat and shat.');
+// getTone('The fat black cat sat in the hat and shat.');

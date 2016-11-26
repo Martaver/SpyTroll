@@ -76,7 +76,7 @@ input {
     cursor: pointer;
     border-radius: 2px;
     border: 1px solid #77eedf;
-    transition: background-color 0.5s, opacity 1.5s;
+    transition: background-color 0.5s, opacity 0.5s;
     position: absolute;
     right: 10px;
 }

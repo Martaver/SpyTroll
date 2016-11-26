@@ -9,9 +9,8 @@
     },
     "rules": {
         "no-undef" : 2,
-        "semi": ["error", "never"],
-        "indent": [2, 4, {"SwitchCase": 1}],
-        "no-trailing-spaces": "error"
+        "semi": ["warn"],
+        "indent": [2, 4, {"SwitchCase": 1}]
     },
     "env": {
         "browser": true,

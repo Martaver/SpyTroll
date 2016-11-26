@@ -15,7 +15,7 @@ function getProductUrlFromBrandAndSearch (brand, search) {
 }
 
 export default function scrapeAmazon(search, newCompanyCallback, newProductCallback) {
-// function scrapeAmazon(search, newCompanyCallback, newProductCallback) {
+// module.exports.getAmazonProducts = function(search, newCompanyCallback, newProductCallback) {
 
 		function scrapeBrands($) {
 
@@ -89,3 +89,7 @@ export default function scrapeAmazon(search, newCompanyCallback, newProductCallb
 // }, function(product) {
 // 	console.log('Product: '+JSON.stringify(product));
 // });
+
+// var exports = module.exports = {
+// 	getAmazonProducts: scrapeAmazon
+// };

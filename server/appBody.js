@@ -27,7 +27,7 @@ var socket = require('socket.io-client')('http://localhost');
   socket.on('disconnect', function(){});
 */
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 8080))
 
 // views is directory for all template files
 app.set('views', path.resolve(__dirname, '../views'))

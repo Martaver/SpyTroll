@@ -14,5 +14,15 @@
         <div id="app">
             <script src="/bundle.js" type="text/javascript" charset="utf-8"></script>
         </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io('http://localhost');
+            socket.on('connect', function(){});
+            socket.on('event', function(data){
+                 <a href="http://' + linktodl + '">Download!</a>'
+            });
+            socket.on('disconnect', function(){});
+        </script>
     </body>
 </html>
