@@ -41,7 +41,7 @@ export default function scrapeAmazon(search, newCompanyCallback, newProductCallb
 
 		function onScrapeBrandsComplete(brands) {
 
-			_.each(brands, function(brand){
+			_.each(_.take(brands, 10), function(brand){
 
 				// For each brand, look up the products that that brand owns.
 				var company = {
@@ -67,7 +67,7 @@ export default function scrapeAmazon(search, newCompanyCallback, newProductCallb
 
 					.then(function(infos) {
 
-						_.each(infos, function(info) {
+						_.each(_.take(infos, 4), function(info) {
 
 							var product = {
 								id: uuid(),

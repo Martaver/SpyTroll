@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Product market analyser",
   "main": "prod/app.js",
+  "engines": {
+    "node": "4.1.1"
+  },
   "scripts": {
     "start": "prod/app.js",
     "start:dev": "source .env && DEBUG=express:* NODE_ENV=development nodemon prod/app.js",
