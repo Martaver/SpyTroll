@@ -7,7 +7,7 @@
     "node": "6.3.0"
   },
   "scripts": {
-    "start": "prod/app.js",
+    "start": "source .env && DEBUG=express:* NODE_ENV=development nodemon prod/app.js",
     "start:dev": "source .env && DEBUG=express:* NODE_ENV=development nodemon prod/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
