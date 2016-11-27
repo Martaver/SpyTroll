@@ -20,7 +20,15 @@ export default class Landing extends Component {
 }
 
 Landing.propTypes = {
-    companies: PropTypes.objectOf(PropTypes.shape({
+    companies: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+    }).isRequired),
+    products: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+    }).isRequired),
+    tones: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
     }).isRequired)
