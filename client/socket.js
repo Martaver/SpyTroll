@@ -2,26 +2,30 @@
  * Created by sebas_000 on 27/11/2016.
  */
 import io from 'socket.io-client'
-import { RECEIVE_COMPANY, RECEIVE_PRODUCT, RECEIVE_TONE } from './termInput/termInputActions'
 
-export default function(){
-    var client = io()
+import {receiveCompany, receiveProduct, receiveCompanyTone} from './socketActions'
 
-    client.on('action', function(action){
-        console.log(action)
-    })
+export default function(store){
 
-    client.on('company', function(company){
-        console.log('Got company:', company)
-    })
+    let theStore = store;
 
-    client.on('product', function(product){
-        console.log('Got product:', product)
-    })
+	var client = io();
 
-    client.on('company-tone', function(toneUpdate){
-        console.log('Got tone-update:', toneUpdate)
-    })
+	client.on('company', function(company){
+		console.log('Got company:', company);
 
-    return client
+		theStore.dispatch(receiveCompany(company))
+	});
+
+	client.on('product', function(product){
+		console.log('Got product:', product);
+
+		theStore.dispatch(receiveProduct(product))
+	});
+
+	client.on('company-tone', function(tone){
+		console.log('Got company tone:', tone)
+
+		theStore.dispatch(receiveCompanyTone(tone));
+	});
 };

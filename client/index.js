@@ -18,22 +18,13 @@ import LandingContainer from './landing/landingContainer'
 // Redux Store initialization
 ////////////////////////////////////////////////////////////////////////////////
 
-let socket = startSocket()
-let socketIoMiddleware = createSocketIoMiddleware(socket, { execute: function(action, emit, next, dispatch) {
-    emit('action', action)
-    dispatch( console.log('INDEXJS ACTION HERE') )
-    dispatch( console.log(action) )
-    next(action)
-} })
+let store = applyMiddleware(thunk, routerMiddleware(browserHistory))(createStore)(reducers)
 
-let store = applyMiddleware(thunk,
-                            socketIoMiddleware,
-                            routerMiddleware(browserHistory))(createStore)(reducers)
+startSocket(store);
 
 store.subscribe(()=>{
     // console.log('new client state', store.getState())
 })
-store.dispatch({type:'test', data:'testing'})
 
 ////////////////////////////////////////////////////////////////////////////////
 // Render the DOM
