@@ -5,7 +5,7 @@ import { changeFieldValue } from '../form/formActions'
 
 const mapStateToProps = (state) => {
     return {
-        companies: state.get('entities').get('companies').toJS()
+        companies: {} || state.get('entities').get('companies').toJS()
     }
 }
 

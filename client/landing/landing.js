@@ -4,6 +4,7 @@ import styles from './css/landing.css'
 import Header from '../header/header'
 import TermInputContainer from '../termInput/termInputContainer'
 import Dashboard from '../dashboard/dashboard'
+import mapObject from '../mapObject'
 
 export default class Landing extends Component {
     render() {
@@ -13,7 +14,7 @@ export default class Landing extends Component {
             <Header title='spy/spy' />
             <div className={ styles.wrapper }>
                 <TermInputContainer />
-                {this.props.companies.map((company) => {
+                {mapObject(this.props.companies, (company) => {
                     return <Dashboard {...company}
                             key={ company.id } />
                 })}
@@ -24,7 +25,7 @@ export default class Landing extends Component {
 }
 
 Landing.propTypes = {
-    companies: PropTypes.arrayOf(PropTypes.shape({
+    companies: PropTypes.objectOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         products: PropTypes.arrayOf(PropTypes.shape({
