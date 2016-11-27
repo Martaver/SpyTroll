@@ -11,7 +11,11 @@ import reducers from './reducers'
 import AppContainer from './app/appContainer'
 import LandingContainer from './landing/landingContainer'
 
+import io from 'socket.io-client'
 
+var client = io()
+
+console.log('io: ', client);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Redux Store initialization

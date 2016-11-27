@@ -1,4 +1,4 @@
- {
+{
   "name": "spytroll",
   "version": "1.0.0",
   "description": "Product market analyser",
@@ -69,8 +69,8 @@
     "redux-thunk": "^2.1.0",
     "request": "^2.79.0",
     "scraperjs": "^1.2.0",
-    "socket-io": "0.0.0",
     "socket.io": "^1.6.0",
+    "socket.io-client": "^1.6.0",
     "superagent": "^3.0.0",
     "twitter": "^1.4.0",
     "uglifyify": "^3.0.2",
