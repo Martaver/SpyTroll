@@ -19,6 +19,8 @@ var buffer = [];
 let app = express()
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var expressWs = require('express-ws')(app);
+
 
 /*
 var socket = require('socket.io-client')('http://localhost');
@@ -128,7 +130,37 @@ var put2Socket = function( name ) {
     buffer.push( name );
 }
 
-io.on('connection', function(client) {  
+app.use(function (req, res, next) {
+  console.log('middleware');
+  req.testing = 'testing';
+  return next();
+});
+
+app.get('/', function(req, res, next){
+  console.log('get route', req.testing);
+  res.end();
+});
+
+app.ws('/', function(ws, req) {
+  ws.on('message', function(msg) {
+    console.log(msg);
+  });
+  console.log('socket', req.testing);
+});
+
+//io.attach( );
+/*
+io.on('connection', function(socket){
+    console.log("Socket connected: " + socket.id);
+    socket.on('action', (action) => {
+        if(action.type === 'server/hello'){
+            console.log('Got hello data!', action.data);
+            socket.emit('action', {type:'message', data:'good day!'});
+        }
+    });
+})*/
+/*
+io.on('connection', function(client) {
     console.log('Client connected...');
 
     client.on('join', function(data) {
@@ -140,6 +172,6 @@ io.on('connection', function(client) {
         client.emit('broad', buffer);
     });
 
-});
+});*/
 
 export default app
