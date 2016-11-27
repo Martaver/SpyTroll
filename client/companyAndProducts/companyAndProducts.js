@@ -1,30 +1,31 @@
 import React, { Component, PropTypes } from 'react'
-import styles from './css/companyAndProduct.css'
+import styles from './css/companyAndProducts.css'
 
 import Company from './company'
 import Product from './product'
 
 export default class CompanyAndProducts extends Component {
+    // {this.props.products.map((product) => {
+    //     return <Product {...product}
+    //             key={ product.id } />
+    // })}
     render() {
         return (
         <div className={ styles.wrapper }>
             <Company id={this.props.id} name={this.props.name} />
-            {this.props.products.map((product) => {
-                return <Dashboard {...product}
-                        key={ product.id } />
-            })}
+
         </div>
         )
     }
 }
 
 CompanyAndProducts.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     products: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        companyId: PropTypes.string.isRequired,
+        companyId: PropTypes.number.isRequired,
         imageSrc: PropTypes.string.isRequired
     }).isRequired)
 }

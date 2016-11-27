@@ -14,8 +14,8 @@ export default class Product extends Component {
 }
 
 Product.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    companyId: PropTypes.string.isRequired,
+    companyId: PropTypes.number.isRequired,
     imageSrc: PropTypes.string.isRequired
 }

@@ -14,6 +14,6 @@ export default class Company extends Component {
 }
 
 Company.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
 }

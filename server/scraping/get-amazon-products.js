@@ -13,6 +13,9 @@ function getProductUrlFromBrandAndSearch (brand, search) {
     return 'https://www.amazon.com/gp/search/ref=sr_nr_p_89_5?fst=as%3Aoff&rh=i%3Aaps%2Ck%3Ae-reader%2Cp_89%3A'+brand+'&keywords='+search+'&ie=UTF8&qid=1480151129&rnid=2528832011'
 }
 
+let companyId = 0
+let productId = 0
+
 export default function scrapeAmazon(search, newCompanyCallback, newProductCallback) {
 // module.exports.getAmazonProducts = function(search, newCompanyCallback, newProductCallback) {
     function scrapeBrands($) {
@@ -36,9 +39,10 @@ export default function scrapeAmazon(search, newCompanyCallback, newProductCallb
         _.each(_.take(brands, 10), function(brand){
             // For each brand, look up the products that that brand owns.
             var company = {
-                id: uuid(),
+                id: companyId,
                 name: brand
             }
+            companyId++
 
             newCompanyCallback(company)
 
@@ -55,11 +59,12 @@ export default function scrapeAmazon(search, newCompanyCallback, newProductCallb
             .then(function(infos) {
                 _.each(_.take(infos, 4), function(info) {
                     var product = {
-                        id: uuid(),
+                        id: productId,
                         name: info.name,
                         companyId: company.id,
                         imageSrc: info.imageSrc
                     }
+                    productId++
 
                     newProductCallback(product)
                 })

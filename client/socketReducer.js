@@ -2,36 +2,33 @@ import Immutable from 'immutable'
 import update from 'react-addons-update'
 import { RECEIVE_COMPANIES, RECEIVE_PRODUCTS, RECEIVE_TONES } from './socketActions'
 
-const initialState = Immutable.Map({
-    companies: {}
-})
+const initialState = {
+    companies: []
+}
 
 export default function socketReducer(state=initialState, action) {
-    let myState = state
-    console.log(myState.toJS())
     switch(action.type) {
         case 'RECEIVE_COMPANY':
-            console.log('RECEIVE_COMPANY')
-            console.log('========================================')
-            console.log(action.payload.company)
-            console.log(myState)
-            myState = update(myState, {
-                companies: {$push: action.payload.company}
+            let payload = {
+                ...action.payload.company,
+                products: [],
+                emotions: []
+            }
+            return update(state, {
+                companies: {$push: [payload]}
             })
-            console.log(myState.toJS())
-            console.log('========================================')
-            return myState
         case 'RECEIVE_PRODUCT':
-            console.log('RECEIVE_PRODUCT')
-            console.log('========================================')
-            console.log(action.payload)
-            console.log(state.getIn(['entities', 'companies', action.payload.data.companyId, 'products']))
-            state.updateIn(['entities', 'companies', action.payload.data.companyId, 'products'], Immutable.fromJS(action.data))
-            console.log(state)
-            console.log('========================================')
+            let idx = action.payload.product.companyId
+            state.companies[idx] = update(state.companies[idx], {
+                products: {$push: [action.payload.product]}
+            })
             return state
-        case 'RECEIVE_TONE':
-            return state.updateIn(['entities', 'companies', action.payload.data.companyId, 'emotions'], Immutable.fromJS(action.payload.data.emotions))
+        case 'RECEIVE_COMPANY_TONE':
+            idx = action.payload.tone.companyId
+            state.companies[idx] = update(state.companies[idx], {
+                emotions: {$push: [action.payload.tone]}
+            })
+            return state
         default:
             return state
     }
