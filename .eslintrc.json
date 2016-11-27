@@ -10,7 +10,8 @@
     "rules": {
         "no-undef" : 2,
         "semi": ["warn"],
-        "indent": [2, 4, {"SwitchCase": 1}]
+        "indent": [2, 4, {"SwitchCase": 1}],
+        "no-trailing-spaces": "error"
     },
     "env": {
         "browser": true,
