@@ -43,7 +43,7 @@ app.get('/data', function(request, response) {
 
     // Get the data from production env
     runScrape( searchterm,
-        function(c) { io.emit('company', c)},
+        function(c) { io.emit('action', {type: 'RECEIVE_COMPANIES', data: c})},
         function(p) { io.emit('action', {type: 'RECEIVE_PRODUCTS', data: p})},
         function(t) { io.emit('action', {type: 'RECEIVE_TONES', data: t})}
     )

@@ -6,7 +6,6 @@ import { RECEIVE_COMPANY, RECEIVE_PRODUCT, RECEIVE_TONE } from './termInput/term
 
 export default function(){
     var client = io()
-    console.log("in socket.js")
 
     client.on('action', function(action){
         console.log(action)
