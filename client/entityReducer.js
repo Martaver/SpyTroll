@@ -1,11 +1,9 @@
 import Immutable from 'immutable'
 import { FETCH_ENTITY_REQUEST, FETCH_ENTITY_SUCCESS, FETCH_ENTITY_FAILED } from './async'
-import { RECEIVE_COMPANIES, RECEIVE_PRODUCTS, RECEIVE_TONES } from './termInput/termInputActions'
+// import { RECEIVE_COMPANIES, RECEIVE_PRODUCTS, RECEIVE_TONES } from './termInput/termInputActions'
 
 const initial = Immutable.fromJS({
-    companies: {},
-    products: {},
-    tones: {}
+    companies: []
 })
 
 function saveEntity(state, group, data)  {
@@ -71,12 +69,13 @@ export function mergeEntities(state, entities, isLoading, error) {
 }
 
 export default function entityReducer(state=initial, action) {
+    // console.log(action)
     switch(action.type) {
-        case RECEIVE_COMPANIES:
+        case 'RECEIVE_COMPANIES':
             return state.mergeIn(['entities', 'companies'], action.payload.data)
-        case RECEIVE_PRODUCTS:
+        case 'RECEIVE_PRODUCTS':
             return state.mergeIn(['entities', 'companies', action.payload.data.companyId, 'products'], Immutable.fromJS(action.payload.data))
-        case RECEIVE_TONES:
+        case 'RECEIVE_TONES':
             return state.mergeIn(['entities', 'companies', action.payload.data.companyId, 'emotions'], Immutable.fromJS(action.payload.data.emotions))
         default:
             return state

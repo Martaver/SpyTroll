@@ -39,11 +39,11 @@ app.get('/', function(request, response) {
 // Call to ScraperJS
 app.get('/data', function(request, response) {
     let searchterm = request.param('searchterm')
-    console.log( "Query: " + request.body )
+    // console.log( "Query: " + request.body )
 
     // Get the data from production env
     runScrape( searchterm,
-        function(c) { io.emit('action', {type: 'RECEIVE_COMPANIES', data: c})},
+        function(c) { io.emit('company', c)},
         function(p) { io.emit('action', {type: 'RECEIVE_PRODUCTS', data: p})},
         function(t) { io.emit('action', {type: 'RECEIVE_TONES', data: t})}
     )
@@ -56,5 +56,21 @@ server.listen(app.get('port'), function() {
 })
 
 io.on('connection', function(socket) {
-    console.log('connection added')
+    socket.on('action', (action) => {
+        // console.log('actions over here')
+        // console.log(action.type)
+        switch(action.type) {
+            case 'RECEIVE_COMPANIES':
+                console.log('Got company: ', action.data)
+                socket.emit('action', {type: 'RECEIVE_COMPANIES', data: action.data})
+            case 'RECEIVE_PRODUCTS':
+                console.log('Got product: ', action.data)
+                socket.emit('action', {type: 'RECEIVE_PRODUCTS', data: action.data})
+            case 'RECEIVE_TONES':
+                console.log('Got tone: ', action.data)
+                socket.emit('action', {type: 'RECEIVE_TONES', data: action.data})
+            default:
+                console.log('Default logging')
+        }
+    })
 })

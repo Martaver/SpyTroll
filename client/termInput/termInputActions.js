@@ -10,38 +10,38 @@ export function requestSearch() {
     }
 }
 
-export const RECEIVE_COMPANIES = 'RECEIVE_COMPANIES'
-
-export function receiveCompanies(data) {
-    return {
-        type: RECEIVE_COMPANIES,
-        payload: {
-            data
-        }
-    }
-}
-
-export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
-
-export function receiveProducts(data) {
-    return {
-        type: RECEIVE_PRODUCTS,
-        payload: {
-            data
-        }
-    }
-}
-
-export const RECEIVE_TONES = 'RECEIVE_TONES'
-
-export function receiveTones(data) {
-    return {
-        type: RECEIVE_TONES,
-        payload: {
-            data
-        }
-    }
-}
+// export const RECEIVE_COMPANIES = 'RECEIVE_COMPANIES'
+//
+// export function receiveCompanies(data) {
+//     return {
+//         type: RECEIVE_COMPANIES,
+//         payload: {
+//             data
+//         }
+//     }
+// }
+//
+// export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
+//
+// export function receiveProducts(data) {
+//     return {
+//         type: RECEIVE_PRODUCTS,
+//         payload: {
+//             data
+//         }
+//     }
+// }
+//
+// export const RECEIVE_TONES = 'RECEIVE_TONES'
+//
+// export function receiveTones(data) {
+//     return {
+//         type: RECEIVE_TONES,
+//         payload: {
+//             data
+//         }
+//     }
+// }
 
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS'
 

@@ -7,6 +7,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 import { createStore, applyMiddleware } from 'redux'
 import createSocketIoMiddleware from 'redux-socket.io'
 import thunk from 'redux-thunk'
+import io from 'socket.io-client'
 import startSocket from './socket'
 
 import reducers from './reducers'
@@ -18,12 +19,21 @@ import LandingContainer from './landing/landingContainer'
 ////////////////////////////////////////////////////////////////////////////////
 
 let socket = startSocket()
-let socketIoMiddleware = createSocketIoMiddleware(socket)
+let socketIoMiddleware = createSocketIoMiddleware(socket, { execute: function(action, emit, next, dispatch) {
+    emit('action', action)
+    dispatch( console.log('INDEXJS ACTION HERE') )
+    dispatch( console.log(action) )
+    next(action)
+} })
 
-let store = createStore(reducers,
-                applyMiddleware(thunk,
-                                socketIoMiddleware,
-                                routerMiddleware(browserHistory)))
+let store = applyMiddleware(thunk,
+                            socketIoMiddleware,
+                            routerMiddleware(browserHistory))(createStore)(reducers)
+
+store.subscribe(()=>{
+    // console.log('new client state', store.getState())
+})
+store.dispatch({type:'test', data:'testing'})
 
 ////////////////////////////////////////////////////////////////////////////////
 // Render the DOM

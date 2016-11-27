@@ -7,6 +7,7 @@ import Dashboard from '../dashboard/dashboard'
 
 export default class Landing extends Component {
     render() {
+        // console.log(this.props.companies)
         return (
         <div>
             <Header title='spy/spy' />
@@ -36,5 +37,5 @@ Landing.propTypes = {
             name: PropTypes.string,
             score: PropTypes.number
         }).isRequired).isRequired
-    }).isRequired)
+    }))
 }
