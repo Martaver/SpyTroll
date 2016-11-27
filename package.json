@@ -4,7 +4,7 @@
   "description": "Product market analyser",
   "main": "prod/app.js",
   "engines": {
-    "node": "4.1.1"
+    "node": "6.3.0"
   },
   "scripts": {
     "start": "prod/app.js",
