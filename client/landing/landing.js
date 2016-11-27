@@ -3,13 +3,17 @@ import styles from './css/landing.css'
 
 import Header from '../header/header'
 import TermInputContainer from '../termInput/termInputContainer'
+import Dashboard from '../dashboard/dashboard'
 
 export default class Landing extends Component {
     render() {
         return (
-        <div className={ styles.wrapper }>
+        <div>
             <Header title='spy/spy' />
-            <TermInputContainer />
+            <div className={ styles.wrapper }>
+                <TermInputContainer />
+                <Dashboard />
+            </div>
         </div>
         )
     }
