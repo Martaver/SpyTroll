@@ -9,7 +9,7 @@
     },
     "rules": {
         "no-undef" : 2,
-        "semi": ["warn"],
+        "semi": ["error", "never"],
         "indent": [2, 4, {"SwitchCase": 1}],
         "no-trailing-spaces": "error"
     },
