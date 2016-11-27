@@ -3,13 +3,10 @@ import mongoose from "mongoose"
 import bodyParser from "body-parser"
 import path from "path"
 import mustacheExpress from 'mustache-express'
+import runScrape from './scraping/run-scrape'
 
 import http from 'http';
 import socketIo from 'socket.io';
-
-import scrapeAmazon from './scraping/get-amazon-products.js';
-
-//import getTone from './watson/get-tone.js';
 
 let app = express();
 let server = http.createServer(app);
@@ -26,11 +23,11 @@ app.set('view engine', 'html');
 app.use(express.static('public'));
 
 // set up path to our babel polyfill
-// app.use('/scripts', express.static(__dirname + '/node_modules/babel-polyfill/dist/'))
+app.use('/scripts', express.static(__dirname + '/node_modules/babel-polyfill/dist/'))
 
 // Make sure    express parses request bodies
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // resolve landing.html on /
 app.get('/', function(request, response) {
@@ -40,22 +37,24 @@ app.get('/', function(request, response) {
 });
 
 // Call to ScraperJS
-// app.get('/data', function(request, response) {
-// 	let searchterm = request.param('searchterm');
-// 	console.log( "Query: " + request.body );
-//
-// 	// Get the data from production env
-// 	scrapeAmazon( searchterm,
-// 		function( stuff ) { console.log( stuff ) },
-// 		put2Socket );
-//
-// 	response.status(200).send("Searching: " + searchterm );
-// });
+app.get('/data', function(request, response) {
+	let searchterm = request.param('searchterm');
+	console.log( "Query: " + request.body );
+
+	// Get the data from production env
+	runScrape( searchterm,
+		function(c) { io.emit('company', c)},
+		function(p) { io.emit('product', p)},
+		function(t) { io.emit('company-tone', t)}
+		);
+
+	response.status(200).send("Searching: " + searchterm );
+});
 
 server.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'))
 });
 
-io.on('connection', function() {
+io.on('connection', function(socket) {
 	console.log('connection added');
 });

@@ -6,7 +6,7 @@
 // var twitter = require('../twitter/get-tweets-search');
 // var watson = require('../watson/get-tone');
 import _ from 'lodash';
-import getAmazonProducts from 'get-amazon-products';
+import getAmazonProducts from './get-amazon-products';
 import getTweetsSearch from '../twitter/get-tweets-search';
 import getTone from '../watson/get-tone';
 
