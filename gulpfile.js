@@ -18,7 +18,7 @@ var cssModulesify = require('css-modulesify')
 var config = {
     serverFiles: 'server/**/*.js',
     jsFiles: 'client/**/*.js',
-    cssGlobalFiles: 'client/css/global/*.css',
+    cssGlobalFiles: 'client/css/global.css',
     isProduction: process.env.NODE_ENV === 'production'
 }
 

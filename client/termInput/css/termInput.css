@@ -41,7 +41,7 @@ input {
 }
 
 .terms {
-    width: 1030px;
+    width: 1880px;
     height: 60px;
     background-color: inherit;
     border: 1px solid #D8DAD3;
@@ -57,7 +57,7 @@ input {
 }
 
 .wrapper:hover > .terms {
-    width: 880px;
+    width: 1728px;
 }
 
 .submit {

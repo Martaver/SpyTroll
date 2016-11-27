@@ -1,7 +1,11 @@
 .wrapper {
     height: 100%;
-    max-height: 100%;
+    max-height: 963px;
     width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+
+    margin-top: 20px;
+    position: absolute;
+    top: 69px;
 }
