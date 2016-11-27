@@ -5,22 +5,22 @@ import path from "path"
 import mustacheExpress from 'mustache-express'
 import runScrape from './scraping/run-scrape'
 
-import http from 'http';
-import socketIo from 'socket.io';
+import http from 'http'
+import socketIo from 'socket.io'
 
-let app = express();
-let server = http.createServer(app);
-let io = socketIo(server);
+let app = express()
+let server = http.createServer(app)
+let io = socketIo(server)
 
-app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.PORT || 8080))
 
 // views is directory for all template files
-app.set('views', path.resolve(__dirname, '../views'));
-app.engine('html', mustacheExpress());
-app.set('view engine', 'html');
+app.set('views', path.resolve(__dirname, '../views'))
+app.engine('html', mustacheExpress())
+app.set('view engine', 'html')
 
 // set up a public folder
-app.use(express.static('public'));
+app.use(express.static('public'))
 
 // set up path to our babel polyfill
 app.use('/scripts', express.static(__dirname + '/node_modules/babel-polyfill/dist/'))
@@ -31,30 +31,30 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // resolve landing.html on /
 app.get('/', function(request, response) {
-	response.render('index', {
-		production: process.env.NODE_ENV === 'production',
-	})
-});
+    response.render('index', {
+        production: process.env.NODE_ENV === 'production',
+    })
+})
 
 // Call to ScraperJS
 app.get('/data', function(request, response) {
-	let searchterm = request.param('searchterm');
-	console.log( "Query: " + request.body );
+    let searchterm = request.param('searchterm')
+    console.log( "Query: " + request.body )
 
-	// Get the data from production env
-	runScrape( searchterm,
-		function(c) { io.emit('company', c)},
-		function(p) { io.emit('product', p)},
-		function(t) { io.emit('company-tone', t)}
-		);
+    // Get the data from production env
+    runScrape( searchterm,
+        function(c) { io.emit('action', {type: 'RECEIVE_COMPANIES', data: c})},
+        function(p) { io.emit('action', {type: 'RECEIVE_PRODUCTS', data: p})},
+        function(t) { io.emit('action', {type: 'RECEIVE_TONES', data: t})}
+    )
 
-	response.status(200).send("Searching: " + searchterm );
-});
+    response.status(200).send("Searching: " + searchterm )
+})
 
 server.listen(app.get('port'), function() {
-	console.log('Node app is running on port', app.get('port'))
-});
+    console.log('Node app is running on port', app.get('port'))
+})
 
 io.on('connection', function(socket) {
-	console.log('connection added');
-});
+    console.log('connection added')
+})

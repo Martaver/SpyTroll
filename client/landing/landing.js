@@ -12,7 +12,10 @@ export default class Landing extends Component {
             <Header title='spy/spy' />
             <div className={ styles.wrapper }>
                 <TermInputContainer />
-                <Dashboard />
+                {this.props.companies.map((company) => {
+                    return <Dashboard {...company}
+                            key={ company.id } />
+                })}
             </div>
         </div>
         )
@@ -21,15 +24,17 @@ export default class Landing extends Component {
 
 Landing.propTypes = {
     companies: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-    }).isRequired),
-    products: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-    }).isRequired),
-    tones: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        products: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            companyId: PropTypes.string.isRequired,
+            imageSrc: PropTypes.string.isRequired
+        }).isRequired),
+        emotions: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
+            score: PropTypes.number
+        }).isRequired).isRequired
     }).isRequired)
 }

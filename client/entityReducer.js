@@ -73,11 +73,11 @@ export function mergeEntities(state, entities, isLoading, error) {
 export default function entityReducer(state=initial, action) {
     switch(action.type) {
         case RECEIVE_COMPANIES:
-            return state.mergeIn(['entities', 'companies'], Immutable.fromJS(action.payload.data))
+            return state.mergeIn(['entities', 'companies'], action.payload.data)
         case RECEIVE_PRODUCTS:
-            return state.mergeIn(['entities', 'products'], Immutable.fromJS(action.payload.data))
+            return state.mergeIn(['entities', 'companies', action.payload.data.companyId, 'products'], Immutable.fromJS(action.payload.data))
         case RECEIVE_TONES:
-            return state.mergeIn(['entities', 'tones'], Immutable.fromJS(action.payload.data))
+            return state.mergeIn(['entities', 'companies', action.payload.data.companyId, 'emotions'], Immutable.fromJS(action.payload.data.emotions))
         default:
             return state
     }

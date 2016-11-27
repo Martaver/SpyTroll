@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware } from 'redux'
+import createSocketIoMiddleware from 'redux-socket.io'
 import thunk from 'redux-thunk'
 import startSocket from './socket'
 
@@ -16,11 +17,13 @@ import LandingContainer from './landing/landingContainer'
 // Redux Store initialization
 ////////////////////////////////////////////////////////////////////////////////
 
-startSocket();
+let socket = startSocket()
+let socketIoMiddleware = createSocketIoMiddleware(socket)
 
 let store = createStore(reducers,
                 applyMiddleware(thunk,
-                routerMiddleware(browserHistory)))
+                                socketIoMiddleware,
+                                routerMiddleware(browserHistory)))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Render the DOM

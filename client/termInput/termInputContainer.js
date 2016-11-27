@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
             terms: {
                 value: ''
             }
-        });
+        })
 
     return terms.toJS()
 }

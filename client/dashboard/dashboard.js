@@ -7,13 +7,23 @@ export default class Dashboard extends Component {
     render() {
         return (
         <div className={ styles.wrapper }>
-            <Charts
-                term1={Immutable.fromJS({name: 'Joy', value: 0.923})}
-                term2={Immutable.fromJS({name: 'Sadness', value: 0.923})}
-                term3={Immutable.fromJS({name: 'Anger', value: 0.923})} />
+            <Charts emotions={ this.props.emotions } />
         </div>
         )
     }
 }
 
-Dashboard.propTypes = {}
+Dashboard.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    products: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        companyId: PropTypes.string.isRequired,
+        imageSrc: PropTypes.string.isRequired
+    }).isRequired),
+    emotions: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        score: PropTypes.number
+    }).isRequired).isRequired
+}

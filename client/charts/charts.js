@@ -5,11 +5,13 @@ import styles from './css/charts.css'
 export default class Charts extends Component {
     render() {
         let chart2, chart3
+        console.log(this.props.emotions)
+        console.log(this.props.emotions[0])
 
-        if (this.props.term2) {
-            let term2JS = this.props.term2.toJS()
+        if (this.props.emotions[1]) {
+            let tone2JS = this.props.emotions[1].toJS()
             chart2 = (<PieChart
-                data={[{label: this.props.term2.get('name'), value: +(this.props.term2.get('value')*100).toFixed(1)}, {label: '', value: +(100-this.props.term2.get('value')*100).toFixed(1)}]}
+                data={[{label: this.props.emotions[1].get('name'), value: +(this.props.emotions[1].get('score')*100).toFixed(1)}, {label: '', value: +(100-this.props.emotions[1].get('score')*100).toFixed(1)}]}
                 width={450}
                 height={400}
                 radius={110}
@@ -23,10 +25,10 @@ export default class Charts extends Component {
                 sectorBorderColor={'#F3F3F3'} />)
         }
 
-        if (this.props.term3) {
-            let term3JS = this.props.term3.toJS()
+        if (this.props.emotions[2]) {
+            let tone3JS = this.props.emotions[2].toJS()
             chart3 = (<PieChart
-                data={[{label: this.props.term3.get('name'), value: +(this.props.term3.get('value')*100).toFixed(1)}, {label: '', value: +(100-this.props.term3.get('value')*100).toFixed(1)}]}
+                data={[{label: this.props.emotions[2].get('name'), value: +(this.props.emotions[2].get('score')*100).toFixed(1)}, {label: '', value: +(100-this.props.emotions[2].get('score')*100).toFixed(1)}]}
                 width={450}
                 height={400}
                 radius={110}
@@ -43,7 +45,7 @@ export default class Charts extends Component {
         return (
         <div className={ styles.wrapper }>
             <PieChart
-                data={[{label: this.props.term1.get('name'), value: +(this.props.term1.get('value')*100).toFixed(1)}, {label: '', value: +(100-this.props.term1.get('value')*100).toFixed(1)}]}
+                data={[{label: this.props.emotions[0].get('name'), value: +(this.props.emotions[0].get('score')*100).toFixed(1)}, {label: '', value: +(100-this.props.emotions[0].get('score')*100).toFixed(1)}]}
                 width={450}
                 height={400}
                 radius={110}
@@ -63,16 +65,8 @@ export default class Charts extends Component {
 }
 
 Charts.propTypes = {
-    term1: PropTypes.shape({
+    emotions: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
-        value: PropTypes.number
-    }).isRequired,
-    term2: PropTypes.shape({
-        name: PropTypes.string,
-        value: PropTypes.number
-    }),
-    term3: PropTypes.shape({
-        name: PropTypes.string,
-        value: PropTypes.number
-    })
+        score: PropTypes.number
+    }).isRequired).isRequired
 }
